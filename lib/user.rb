@@ -3,15 +3,21 @@ class User
   attr_reader :name
   attr_accessor :points
 
-  def initialize(name, premium = false)
+  def initialize(name, premium = false, points = 0)
     @name = name
-    # premium stored as given, but no predicate method premium?
     @premium = premium
-    # points intentionally left uninitialized (nil) for buggy behaviour
+    @points = points  # total * 0.01 if premium, it will be double
   end
 
-  # BAD: inconsistent API (no premium? convenience method)
-  def premium
+  def premium?
     @premium
+  end
+
+  def calc_points(total)
+    temp_total = (total * 0.01).round
+    logger = Logger.new(STDOUT)
+    logger.debug("temp_total #{temp_total}")
+    @points = @premium ? temp_total * 2 : temp_total
+    logger.debug("@points #{@points}")
   end
 end

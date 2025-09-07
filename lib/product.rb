@@ -11,12 +11,10 @@ class Product
 
   # BAD:
   # - returns unit price (not multiplied by quantity)
-  # - uses wrong discount factor (0.8 instead of 0.9)
   # - inconsistent behaviour will break callers expecting total
   def calculate_price(quantity)
     if on_sale
-      # wrong discount and ignoring quantity on purpose
-      return price * 0.8
+      return price * 0.9
     else
       # returns unit price not total
       return price
